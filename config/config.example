@@ -1,0 +1,251 @@
+# Rename me to config.yml and then make changes as needed
+# If pulling repository data, fill-in a GitHub personal access token
+# If building the README.md file, you need only update the copy, projects, and featured sections
+
+github:
+  # The GitHub GraphQL endpoint (should not be changed)
+  endpoint: "https://api.github.com/graphql"
+  # GitHub personal access token
+  token: "<TOKEN HERE>"
+  # Filename for the JSON file in output/
+  output: "repo_data.json"
+  # Request timeout and delay (in seconds) between requests to the GitHub API
+  query_delay: 5
+  timeout: 10
+
+# MarkDown-formatted text to be added to the README.md file
+copy:
+  introduction: "Some copy here about SpecterOps and what we do for open-source..."
+  featured: "Some copy here about the featured projects..."
+  other: "Some copy here about the other projects..."
+
+# Update this to track new profiles and repositories
+# Each entry needs the following keys:
+#    `profile`, the GitHub profile name
+#    `repos`, a list of the repository names
+# There is also an optional `org` boolean value that can be set to `true` if the profile is an organization
+# Organizations may have members and repositories that are not directly related to SpecterOps
+projects:
+  - profile: "001SPARTaN"
+    repos: [
+      "SaltedCaramel",
+      "aggressor_scripts",
+      "FaceDancer",
+    ]
+  - profile: "Mayyhem"
+    repos: [
+      "SharpSCCM",
+    ]
+  - profile: "breakid"
+    repos: [
+      "SharpCompress",
+      "SharpUtils",
+      "SharpFirewall",
+    ]
+  - profile: "chrismaddalena"
+    repos: [
+      "DocPatch",
+      "SharpCloud",
+      "ODIN",
+      "Cooper",
+      "Goreport",
+    ]
+  - profile: "its-a-feature"
+    repos: [
+      "Mythic",
+      "dylibHijackScanner",
+      "Orchard",
+      "bifrost",
+    ]
+  - profile: "hotnops"
+    repos: [
+      "gtunnel",
+      "AzureScripts",
+      "AWSRoleJuggler",
+      "RemoteDebugView",
+      "COM_Mapper",
+    ]
+  - profile: "eladshamir"
+    repos: [
+      "SharpElevator",
+    ]
+  - profile: "greycatsec"
+    repos: [
+      "cookienapper",
+    ]
+  - profile: "jaredcatkinson"
+    repos: [
+      "PSReflect-Functions",
+      "AbstractionMaps",
+      "abstraction-workshop",
+    ]
+  - profile: "jsecurity101"
+    repos: [
+      "Marvel-Lab",
+      "Windows-API-To-Sysmon-Events",
+    ]
+  - profile: "leechristensen"
+    repos: [ "SpoolSample" ]
+  - profile: "matterpreter"
+    repos: [
+      "OffensiveCSharp",
+      "DefenderCheck",
+      "Shhmon",
+    ]
+  - profile: "t94j0"
+    repos: [
+      "satellite",
+      "gophish-notifier",
+    ]
+  - profile: "luv2crawl"
+    repos: [ "Cartographer" ]
+  - profile: "Ne0nd0g"
+    repos: [ "merlin" ]
+  - profile: "cobbr"
+    repos: [
+      "Covenant",
+      "SharpSploit",
+      "SharpGen",
+      "Elite",
+      "C2Bridge",
+    ]
+  - profile: "0xthirteen"
+    repos: [
+      "SharpRDP",
+      "MoveKit",
+      "StayKit",
+      "SharpStay",
+      "SharpMove",
+    ]
+  - profile: "IceMoonHSV"
+    repos: [
+      "Sim",
+      "PortScanner",
+    ]
+  - profile: "merrillmatt011"
+    repos: [
+      "EntropyCapture",
+    ]
+  - profile: "Dcellular"
+    repos: [
+      "GoPhish-Ansible-Setup",
+    ]
+  - profile: "Invoke-IR"
+    org: True
+    repos: [
+      "ACE",
+      "PowerForensics",
+      "PowerForensicsPortable",
+      "Uproot",
+    ]
+  - profile: "BloodHoundAD"
+    org: True
+    repos: [
+      "BARK",
+      "BloodHound",
+      "BloodHound-Tools",
+      "AzureHound",
+      "SharpHound",
+      "SharpHoundCommon",
+    ]
+  - profile: "MythicAgents"
+    org: True
+    repos: [
+      "apfell",
+      "poseidon",
+      "Apollo",
+    ]
+  - profile: "MythicMeta"
+    org: True
+    repos: [
+      "Mythic_CLI",
+      "MythicReactUI",
+      "Mythic_Scripting",
+      "mythic_sync",
+    ]
+  - profile: "threatexpress"
+    org: True
+    repos: [
+      "domainhunter",
+      "malleable-c2",
+      "cs2modrewrite",
+    ]
+  - profile: "GhostManager"
+    org: True
+    repos: [
+      "Ghostwriter",
+      "Ghostwriter_CLI",
+      "mythic_sync",
+    ]
+  - profile: "GhostPack"
+    org: True
+    repos: [
+      "Rubeus",
+      "Seatbelt",
+      "SafetyKatz",
+      "SharpUp",
+      "KeeThief",
+      "Certify",
+      "SharpDPAPI",
+      "Koh",
+      "DeepPass",
+      "Invoke-Evasion",
+      "PSPKIAudit",
+      "ForgeCert",
+      "RestrictedAdmin",
+      "Lockless",
+      "SharpWMI",
+      "SharpRoast",
+      "SharpDump",
+    ]
+  - profile: "PowerShellMafia"
+    org: True
+    repos: [
+      "PowerSCCM",
+      "CimSweep",
+      "PowerSploit",
+    ]
+  - profile: "EmpireProject"
+    org: True
+    repos: [
+      "Empire",
+    ]
+
+
+# Featured repositories and profile will be displayed more prominently in the README
+# Add or remove repositories and profiles from the list below
+# Use lower case for names to avoid issues with mismatches due to case sensitivity
+# Keep this to <=20 items
+featured:
+  - repo: "bloodhound"
+  - repo: "covenant"
+  - repo: "cs2modrewrite"
+  - repo: "domainhunter"
+  - repo: "empire"
+  - repo: "ghostpack"
+  - repo: "ghostwriter"
+    documentation: "https://www.ghostwriter.wiki/"
+  - repo: "keethief"
+  - repo: "malleable-c2"
+  - repo: "merlin"
+  - repo: "mythic"
+  - repo: "mythicagents"
+  - repo: "mythicmeta"
+  - repo: "powersploit"
+  - repo: "sharprdp"
+  - repo: "sharpsccm"
+  - repo: "sharpsploit"
+  - repo: "staykit"
+
+# Optional overrides for featured repositories
+# Use lower case for names to avoid issues with mismatches due to case sensitivity
+# You can override the `name`, `license` SPDX ID, and `description`
+overrides:
+  - repo: "malleable-c2"
+    name: "Malleable C2"
+  - repo: "domainhunter"
+    name: "DomainHunter"
+  - repo: "merlin"
+    name: "Merlin"
+  - repo: "Mythic"
+    license: "BSD-3-Clause"
