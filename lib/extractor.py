@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from collections import OrderedDict
 from time import sleep
 
 from gql import Client, gql
@@ -14,7 +15,15 @@ from lib.logger import logger
 
 
 class DataExtractor:
-    """Build the README.md file with data fetched from GitHub's GraphQL API."""
+    """
+    Build the README.md file with data fetched from GitHub's GraphQL API.
+
+    **Parameters**
+
+    ``local_only``
+        Use the local JSON data and skip the GitHub connection and token tests for faster execution. Useful for
+        updating the JSON with changes to featured projects. (default: False)
+    """
     script_path = os.path.realpath(".")
 
     # Values to be loaded from the config YAML
@@ -114,13 +123,13 @@ class DataExtractor:
         """
     )
 
-    def __init__(self, skip_tests: bool = False) -> None:
+    def __init__(self, token: str = None, local_only: bool = False) -> None:
         # Load config and store required values
         cfg = load_config(self.config_path)
-        self.token = cfg["github"]["token"]
+        self.token = token
         self.endpoint = cfg["github"]["endpoint"]
 
-        # These two are optional values that we can ignore if they aren't present
+        # These are optional values that we can ignore if they aren't present
         if "timeout" in cfg["github"]:
             self.timeout = cfg["github"]["timeout"]
         if "query_delay" in cfg["github"]:
@@ -130,8 +139,9 @@ class DataExtractor:
             self.output_path = os.path.join(self.script_path, "output", self.output)
 
         # Test the GraphQL connection and auth token
-        self.client = self._prepare_gql_client()
-        if not skip_tests:
+        # The test can be skipped if just updating the featured repos from the config
+        if not local_only and self.token:
+            self.client = self._prepare_gql_client()
             self._test_github()
 
         self.projects = cfg["projects"]
@@ -147,7 +157,7 @@ class DataExtractor:
             transport = AIOHTTPTransport(url=self.endpoint, timeout=self.timeout, headers=headers)
             return Client(transport=transport, fetch_schema_from_transport=True)
         else:
-            raise SystemExit("Config has not been set")
+            raise SystemExit("You must provide a token and have a GitHub endpoint set")
 
     def _execute_query(self, query: DocumentNode, variable_values: dict) -> dict:
         """
@@ -182,18 +192,44 @@ class DataExtractor:
         logger.info("Successfully authenticated as: %s", result["viewer"]["login"])
 
     def _determine_featured(self, repo: str) -> None:
-        """Determine which projects are featured."""
+        """Determine which projects are featured and set some values."""
         extras = []
+        img = None
+        project_type = "red"
         featured_flag = False
         for project in self.featured:
             if repo.lower() == project["repo"].lower():
                 featured_flag = True
                 for key, value in project.items():
-                    if key != "repo":
+                    if key == "type":
+                        project_type = value
+                    elif key == "img":
+                        img = value
+                    elif key == "repo":
+                        continue
+                    else:
                         extras.append([key, value])
-                logger.info("Repo %s flagged as a featured item", repo)
+                logger.info("Repo `%s` flagged as a featured item", repo)
+        self.repo_data[repo]["img"] = img
+        self.repo_data[repo]["type"] = project_type
         self.repo_data[repo]["featured"] = featured_flag
         self.repo_data[repo]["extras"] = extras
+
+    def _sort_keys(self) -> None:
+        """
+        Sort the keys in the `repo_data` dictionary so the featured repositories
+        are first in the order they appear in the config.yml file.
+        """
+        reordered = OrderedDict()
+        # self.repo_data = OrderedDict(self.repo_data)
+        for repo in self.featured:
+            try:
+                reordered[repo["repo"]] = self.repo_data.pop(repo["repo"])
+            except KeyError:
+                logger.warning("Repo `%s` is not a valid repository", repo["repo"])
+        for repo in self.repo_data:
+            reordered[repo] = self.repo_data[repo]
+        self.repo_data = reordered
 
     def fetch(self) -> None:
         """Fetch the project data from GitHub."""
@@ -206,22 +242,25 @@ class DataExtractor:
                 self.all_profiles.append(profile)
                 repos = entry["repos"]
                 for repo in repos:
+                    name = repo.lower()
                     self.all_repos.append(repo)
                     logger.info("Fetching data for: %s/%s", profile, repo)
                     repo_data = self._execute_query(self.repo_info_query, {"owner": profile, "name": repo})
                     logger.debug("Result: %s", repo_data)
-                    self.repo_data[repo] = repo_data["repository"]
-                    self._determine_featured(repo)
+                    if "repository" in repo_data:
+                        self.repo_data[name] = repo_data["repository"]
+                        self._determine_featured(name)
                     # Be kind to the GraphQL API
                     sleep(5)
             except KeyError:
-                logger.warning("Entry is missing the `profile` and `repos` values: %s", entry)
+                logger.error("Entry is missing the `profile` and `repos` values: %s", entry)
                 continue
         logger.info("Finished collecting project data!")
 
     def dump_json(self) -> None:
         """Dump the data to a JSON file."""
         logger.info("Writing project data to %s", self.output_path)
+        self._sort_keys()
         with open(self.output_path, "w") as f:
             json.dump(self.repo_data, f, indent=4)
 
@@ -229,14 +268,13 @@ class DataExtractor:
         """Update existing project data with changes to the configured featured projects."""
         logger.info("Updating project data with featured projects")
         if os.path.isfile(self.output_path):
+            logger.info("Loading existing project data from %s", self.output_path)
             with open(self.output_path, "r") as f:
                 self.repo_data = json.load(f)
             for repo in self.repo_data:
                 self._determine_featured(repo)
         else:
             logger.warning("No existing data found to update")
-        with open("update.json", "w") as f:
-            json.dump(self.repo_data, f, indent=4)
 
     def dump_projects_list(self) -> None:
         """Dump the list of projects to the console."""
