@@ -20,10 +20,14 @@ class ReadMeBuilder:
         "violet": "0F0B38",
         "neon": "5465FF",
         "lavender": "D7D6E6",
+        "red": "FF7E79",
+        "blue": "A8D08D",
+        "purple": "966FD6",
     }
 
     def __init__(self, data):
         cfg = load_config(self.config_path)
+        self.featured_projects = cfg["featured"]
         self.introduction = cfg["copy"]["introduction"]
         self.featured = cfg["copy"]["featured"]
         self.other = cfg["copy"]["other"]
@@ -69,13 +73,13 @@ class ReadMeBuilder:
             "[![Slack](https://img.shields.io/mastodon/follow/109314317500800201?domain=https%3A%2F%2Finfosec.exchange&style=social)](https://infosec.exchange/@specterops)"
         )
         self.md_file.new_line()
-        self.md_file.new_line(self.introduction)
+        self.md_file.write(self.introduction.strip())
         self.md_file.new_line()
 
     def _build_featured(self) -> None:
         """Build the "Featured Projects" section of the README.md file"""
         self.md_file.new_header(level=1, title="Featured Projects")
-        self.md_file.new_line(self.featured)
+        self.md_file.new_line(self.featured.strip())
         self.md_file.new_line()
 
         for repo in self.data.values():
@@ -90,19 +94,39 @@ class ReadMeBuilder:
                 description = repo["description"]
                 url = repo["url"]
                 homepage_url = repo["homepageUrl"]
+                archived = repo["isArchived"]
+
+                project_type = repo["type"]
+                if project_type.lower() in ["r", "red"]:
+                    project_type = urllib.parse.quote("Red Team")
+                    project_color = self.COLORS["red"]
+
+                if project_type.lower() in ["b", "blue"]:
+                    project_type = urllib.parse.quote("Blue Team")
+                    project_color = self.COLORS["blue"]
+
+                if project_type.lower() in ["p", "purple"]:
+                    print("purple")
+                    project_type = urllib.parse.quote("Red & Blue Team")
+                    project_color = self.COLORS["purple"]
 
                 license_name = None
                 if repo["licenseInfo"]:
                     license_name = self._convert_license_name(repo["licenseInfo"]["spdxId"])
 
+                img = None
+                if repo["img"]:
+                    img = f"img/{repo['img']}"
+
                 for project in self.overrides:
-                    if project["repo"] == name:
+                    if project["repo"] == name.lower():
                         if "name" in project:
-                            name = project["name"]
+                            name = project["name"].strip()
                         if "description" in project:
-                            description = project["description"]
+                            logger.info(f"Overriding description for {name}")
+                            description = project["description"].strip()
                         if "license" in project:
-                            license_name = self._convert_license_name(project["license"])
+                            license_name = self._convert_license_name(project["license"].strip())
 
                 # Repo language metrics
                 language_metrics = {}
@@ -121,21 +145,36 @@ class ReadMeBuilder:
                     pass
 
                 if repo["featured"]:
-                    self.md_file.new_header(level=2, title=name)
+                    title = name
+                    if archived:
+                        title += " (Retired)"
+                    self.md_file.new_header(level=2, title=title)
 
                     # Add badges for licenses and stats
                     badges = ""
                     if license_name:
                         badges = f"![license](https://img.shields.io/badge/license-{license_name}-{self.COLORS['green']})"
+                    badges += f" ![Project Type](https://img.shields.io/badge/type-{project_type}-{project_color})"
                     badges += f" ![Slack](https://img.shields.io/badge/language-{top_lang}-{self.COLORS['neon']})"
                     badges += f" ![forks](https://img.shields.io/github/forks/{name_with_owner}?color={self.COLORS['violet']}&style=social)"
                     badges += f" ![stargazers](https://img.shields.io/github/stars/{name_with_owner}?color={self.COLORS['neon']}&style=social)"
                     self.md_file.new_line(badges)
 
+                    self.md_file.new_line("<details><summary>More Info</summary>")
+
+                    if img:
+                        self.md_file.new_line()
+                        self.md_file.new_line(
+                            self.md_file.new_inline_image(name, img)
+                        )
+
                     if not description:
                         logger.warning(f"Featured project {name_with_owner} has no description")
                     self.md_file.new_line()
-                    self.md_file.new_line(f">{description}")
+                    for line in description.splitlines():
+                        self.md_file.new_line(f"> {line}")
+                    # self.md_file.new_line()
+                    # self.md_file.write(f"> {description}")
 
                     table_contents = [
                         "Resource", "Link",
@@ -151,11 +190,14 @@ class ReadMeBuilder:
                     self.md_file.new_line()
                     self.md_file.new_table(columns=2, rows=rows, text=table_contents, text_align="left")
 
+                    self.md_file.new_line("</details>")
+                    self.md_file.new_line()
+
     def _build_other(self) -> None:
         """Build the final section of the README.md file."""
         self.md_file.new_header(level=1, title="Other Projects")
         self.md_file.new_line()
-        self.md_file.new_line(self.other)
+        self.md_file.new_line(self.other.strip())
         self.md_file.new_line()
 
         for repo in self.data.values():
