@@ -1,0 +1,331 @@
+github:
+  # The GitHub GraphQL endpoint (should not be changed)
+  endpoint: "https://api.github.com/graphql"
+  # Filename for the JSON file in output/
+  output: "repo_data.json"
+  # Request timeout and delay (in seconds) between requests to the GitHub API
+  query_delay: 5
+  timeout: 10
+
+# MarkDown-formatted text to be added to the README.md file
+# You `>` to write a multi-line string and use two blank lines to signify a new paragraph for MarkDown
+copy:
+  introduction: >
+    At SpecterOps, we believe that we can influence our industry's maturation by contributing to the collective knowledge base. We do this by opening our ideas and hypotheses to inspection and criticism. That includes publishing our development works and contributing to the open-source community.
+    
+
+    SpecterOps employees control their projects and maintain intellectual property rights and licenses, so most of the projects sponsored by SpecterOps are spread out over many individual GitHub profiles and organizations. We have organized these projects here for your perusal.
+    
+    
+    You can read more about our commitment to transparency here: [A Push Toward Transparency](https://posts.specterops.io/a-push-toward-transparency-c385a0dd1e34)
+
+  featured: >
+    The following projects are some of the larger open-source projects SpecterOps has, and continues to, sponsor and support. We hope you find them useful!
+
+  other: >
+    SpecterOps employees have also created and contributed to many other projects, too numerous to list in detail here. These projects are listed below, sorted by the owner's profile.
+
+# Update this to track new profiles and repositories
+# Each entry needs the following keys:
+#    `profile`, the GitHub profile name
+#    `repos`, a list of the repository names
+# There is also an optional `org` boolean value that can be set to `true` if the profile is an organization
+# Organizations may have members and repositories that are not directly related to SpecterOps
+projects:
+  - profile: "001SPARTaN"
+    repos: [
+      "SaltedCaramel",
+      "aggressor_scripts",
+      "FaceDancer",
+    ]
+  - profile: "Mayyhem"
+    repos: [
+      "SharpSCCM",
+    ]
+  - profile: "breakid"
+    repos: [
+      "SharpCompress",
+      "SharpUtils",
+      "SharpFirewall",
+    ]
+  - profile: "chrismaddalena"
+    repos: [
+      "DocPatch",
+      "SharpCloud",
+      "ODIN",
+      "Cooper",
+      "Goreport",
+    ]
+  - profile: "its-a-feature"
+    repos: [
+      "Mythic",
+      "dylibHijackScanner",
+      "Orchard",
+      "bifrost",
+    ]
+  - profile: "hotnops"
+    repos: [
+      "gtunnel",
+      "AzureScripts",
+      "AWSRoleJuggler",
+      "RemoteDebugView",
+      "COM_Mapper",
+    ]
+  - profile: "eladshamir"
+    repos: [
+      "SharpElevator",
+    ]
+  - profile: "greycatsec"
+    repos: [
+      "cookienapper",
+    ]
+  - profile: "jaredcatkinson"
+    repos: [
+      "PSReflect-Functions",
+      "AbstractionMaps",
+      "abstraction-workshop",
+    ]
+  - profile: "jsecurity101"
+    repos: [
+      "Marvel-Lab",
+      "Windows-API-To-Sysmon-Events",
+    ]
+  - profile: "leechristensen"
+    repos: [ "SpoolSample" ]
+  - profile: "matterpreter"
+    repos: [
+      "OffensiveCSharp",
+      "DefenderCheck",
+      "Shhmon",
+    ]
+  - profile: "t94j0"
+    repos: [
+      "satellite",
+      "gophish-notifier",
+    ]
+  - profile: "luv2crawl"
+    repos: [ "Cartographer" ]
+  - profile: "Ne0nd0g"
+    repos: [ "merlin" ]
+  - profile: "cobbr"
+    repos: [
+      "Covenant",
+      "SharpSploit",
+      "SharpGen",
+      "Elite",
+      "C2Bridge",
+    ]
+  - profile: "0xthirteen"
+    repos: [
+      "SharpRDP",
+      "MoveKit",
+      "StayKit",
+      "SharpStay",
+      "SharpMove",
+    ]
+  - profile: "IceMoonHSV"
+    repos: [
+      "Sim",
+      "PortScanner",
+    ]
+  - profile: "merrillmatt011"
+    repos: [
+      "EntropyCapture",
+    ]
+  - profile: "Dcellular"
+    repos: [
+      "GoPhish-Ansible-Setup",
+    ]
+  - profile: "Invoke-IR"
+    org: True
+    repos: [
+      "ACE",
+      "PowerForensics",
+      "PowerForensicsPortable",
+      "Uproot",
+    ]
+  - profile: "BloodHoundAD"
+    org: True
+    repos: [
+      "BARK",
+      "BloodHound",
+      "BloodHound-Tools",
+      "AzureHound",
+      "SharpHound",
+      "SharpHoundCommon",
+    ]
+  - profile: "MythicAgents"
+    org: True
+    repos: [
+      "apfell",
+      "poseidon",
+      "Apollo",
+    ]
+  - profile: "MythicMeta"
+    org: True
+    repos: [
+      "Mythic_CLI",
+      "MythicReactUI",
+      "Mythic_Scripting",
+      "mythic_sync",
+    ]
+  - profile: "threatexpress"
+    org: True
+    repos: [
+      "domainhunter",
+      "malleable-c2",
+      "cs2modrewrite",
+    ]
+  - profile: "GhostManager"
+    org: True
+    repos: [
+      "Ghostwriter",
+      "Ghostwriter_CLI",
+      "mythic_sync",
+    ]
+  - profile: "GhostPack"
+    org: True
+    repos: [
+      "Rubeus",
+      "Seatbelt",
+      "SafetyKatz",
+      "SharpUp",
+      "KeeThief",
+      "Certify",
+      "SharpDPAPI",
+      "Koh",
+      "DeepPass",
+      "Invoke-Evasion",
+      "PSPKIAudit",
+      "ForgeCert",
+      "RestrictedAdmin",
+      "Lockless",
+      "SharpWMI",
+      "SharpRoast",
+      "SharpDump",
+    ]
+  - profile: "PowerShellMafia"
+    org: True
+    repos: [
+      "PowerSCCM",
+      "CimSweep",
+      "PowerSploit",
+    ]
+  - profile: "EmpireProject"
+    org: True
+    repos: [
+      "Empire",
+    ]
+
+
+# Featured repositories and profile will be displayed more prominently in the README
+# Add or remove repositories and profiles from the list below
+# Use lower case for names to avoid issues with mismatches due to case sensitivity
+# Keep this to <=20 items
+featured:
+  - repo: "bloodhound"
+    type: "purple"
+    img: "bloodhound.png"
+    documentation: "https://bloodhound.readthedocs.io/en/latest/index.html"
+
+  - repo: "ghostwriter"
+    type: "red"
+    img: "ghostwriter.png"
+    documentation: "https://www.ghostwriter.wiki/"
+
+  - repo: "mythic"
+    type: "red"
+    img: "mythic.png"
+    documentation: "https://docs.mythic-c2.net/"
+
+  - repo: "merlin"
+    type: "red"
+    img: "merlin.png"
+
+  - repo: "covenant"
+    type: "red"
+    img: "covenant.png"
+    documentation: "https://github.com/cobbr/Covenant/wiki"
+
+  - repo: "sharpsploit"
+    type: "red"
+
+  - repo: "sharpsccm"
+    type: "red"
+
+  - repo: "ghostpack"
+    type: "red"
+
+  - repo: "cs2modrewrite"
+    type: "red"
+
+  - repo: "domainhunter"
+    type: "red"
+
+  - repo: "keethief"
+    type: "red"
+
+  - repo: "malleable-c2"
+    type: "red"
+
+  - repo: "sharprdp"
+    type: "red"
+
+  - repo: "staykit"
+    type: "red"
+
+  - repo: "powersploit"
+    type: "red"
+
+  - repo: "empire"
+    type: "red"
+    img: "empire.png"
+
+# Optional overrides for featured repositories
+# Use lower case for names to avoid issues with mismatches due to case sensitivity
+# You can override the `name`, `license` SPDX ID, and `description`
+overrides:
+  - repo: "bloodhound"
+    description: "BloodHound uses graph theory to reveal the hidden and often unintended relationships within an Active Directory or Azure environment. Attackers can use BloodHound to easily identify highly complex attack paths that would otherwise be impossible to quickly identify. Defenders can use BloodHound to identify and eliminate those same attack paths. Both blue and red teams can use BloodHound to easily gain a deeper understanding of privilege relationships in an Active Directory or Azure environment."
+
+  - repo: "ghostwriter"
+    description: "Ghostwriter is a part of your team. It helps you manage clients, projects, reports, and infrastructure in one application. It does not replace some of the more common or traditional project management tools, such as CRMs. Still, it does consolidate all relevant project information in a way for users to easily curate every aspect of their projects."
+
+  - repo: "mythic"
+    license: "BSD-3-Clause"
+    description: "A cross-platform, post-exploit, red teaming framework built with python3, docker, docker-compose, and a web browser UI. It's designed to provide a collaborative and user friendly interface for operators, managers, and reporting throughout red teaming."
+
+  - repo: "merlin"
+    name: "Merlin"
+    description: "Merlin is a cross-platform post-exploitation Command & Control server and agent written in Go."
+
+  - repo: "covenant"
+    description: "Covenant is a .NET command and control framework that aims to highlight the attack surface of .NET, make the use of offensive .NET tradecraft easier, and serve as a collaborative command and control platform for red teamers."
+
+  - repo: "sharpsploit"
+    description: "SharpSploit is a .NET post-exploitation library written in C# that aims to highlight the attack surface of .NET and make the use of offensive .NET easier for red teamers."
+
+  - repo: "sharpsccm"
+    description: "SharpSCCM is a post-exploitation tool designed to leverage Microsoft Endpoint Configuration Manager (a.k.a. ConfigMgr, formerly SCCM) for lateral movement and credential gathering without requiring access to the SCCM administration console GUI."
+
+  - repo: "cs2modrewrite"
+    description: "This project converts a Cobalt Strike profile to a functional mod_rewrite .htaccess or Nginx config file to support HTTP reverse proxy redirection to a Cobalt Strike teamserver. The use of reverse proxies provides protection to backend C2 servers from profiling, investigation, and general internet background radiation."
+
+  - repo: "malleable-c2"
+    name: "Malleable C2"
+
+  - repo: "domainhunter"
+    name: "DomainHunter"
+
+  - repo: "cs2modrewrite"
+    name: "CS2ModRewrite"
+
+  - repo: "powersploit"
+    license: "BSD-3-Clause"
+
+  - repo: "empire"
+    description: >
+      Empire is a post-exploitation framework with a pure-PowerShell 2.0 Windows agent and a pure Python 2.6/2.7 Linux/OS X agent. It is the merge of the previous PowerShell Empire and Python EmPyre projects. The framework offers cryptological-secure communications and a flexible architecture. On the PowerShell side, Empire implements the ability to run PowerShell agents without needing powershell.exe, rapidly deployable post-exploitation modules ranging from key loggers to Mimikatz, and adaptable communications to evade network detection, all wrapped up in a usability-focused framework. PowerShell Empire premiered at BSidesLV in 2015, and Python EmPyre premiered at HackMiami in 2016.
+
+
+      The project was retired in 2019, but the code is still available for reference. You can learn more about the end of the project here: <https://mobile.twitter.com/specterops/status/1156650932421050368>
