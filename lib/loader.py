@@ -22,11 +22,6 @@ def load_config(config_path) -> dict:
         raise SystemExit("GitHub GraphQL endpoint was not found in config")
 
     try:
-        cfg["github"]["token"]
-    except KeyError:
-        raise SystemExit("GitHub access token was not found in config")
-
-    try:
         cfg["github"]["timeout"]
     except KeyError:
         logger.warning("GraphQL timeout was not found in config, will use the default value ")
