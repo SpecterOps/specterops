@@ -233,6 +233,12 @@ class DataExtractor:
 
     def fetch(self) -> None:
         """Fetch the project data from GitHub."""
+        estimate = round(len(self.projects) * self.query_delay / 60, 2)
+        logger.info("Fetching data from GitHub for %s projects", len(self.projects))
+        logger.info(
+            "Fetching will take approximately %s minutes with the %s second delay",
+            estimate, self.query_delay
+        )
         for entry in self.projects:
             try:
                 profile = entry["profile"]
@@ -244,7 +250,7 @@ class DataExtractor:
                 for repo in repos:
                     name = repo.lower()
                     self.all_repos.append(repo)
-                    logger.info("Fetching data for: %s/%s", profile, repo)
+                    logger.debug("Fetching data for: %s/%s", profile, repo)
                     repo_data = self._execute_query(self.repo_info_query, {"owner": profile, "name": repo})
                     logger.debug("Result: %s", repo_data)
                     if "repository" in repo_data:
