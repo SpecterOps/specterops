@@ -1,15 +1,16 @@
 github:
   # The GitHub GraphQL endpoint (should not be changed)
   endpoint: "https://api.github.com/graphql"
-  # Filename for the JSON file in output/
-  output: "repo_data.json"
   # Request timeout and delay (in seconds) between requests to the GitHub API
   query_delay: 5
   timeout: 10
+  # Filename for the JSON file in the `output` directory
+  output: "repo_data.json"
 
 # MarkDown-formatted text to be added to the README.md file
-# You `>` to write a multi-line string and use two blank lines to signify a new paragraph for MarkDown
+# Use `>` to write a multi-line string and use two blank lines to signify a new paragraph for MarkDown
 copy:
+  banner: "img/specterops-banner.jpg"
   introduction: >
     At SpecterOps, we believe that we can influence our industry's maturation by contributing to the collective knowledge base. We do this by opening our ideas and hypotheses to inspection and criticism. That includes publishing our development works and contributing to the open-source community.
     
@@ -74,10 +75,6 @@ projects:
   - profile: "eladshamir"
     repos: [
       "SharpElevator",
-    ]
-  - profile: "greycatsec"
-    repos: [
-      "cookienapper",
     ]
   - profile: "jaredcatkinson"
     repos: [
@@ -208,7 +205,6 @@ projects:
     org: True
     repos: [
       "PowerSCCM",
-      "CimSweep",
       "PowerSploit",
     ]
   - profile: "EmpireProject"
@@ -216,12 +212,21 @@ projects:
     repos: [
       "Empire",
     ]
+  - profile: "DragoQCC"
+    repos: [
+      "HardHatC2",
+    ]
 
 
 # Featured repositories and profile will be displayed more prominently in the README
 # Add or remove repositories and profiles from the list below
 # Use lower case for names to avoid issues with mismatches due to case sensitivity
 # Keep this to <=20 items
+# Keys must include:
+#   `repo`, name of the repository
+#   `type`, a color corresponding with the tool's use (`purple`, `red`, `blue`)
+#   `img`, the name of the image file in the `img` directory (optional)
+#   `documentation`, a link to the documentation for the tool (optional)
 featured:
   - repo: "bloodhound"
     type: "purple"
@@ -247,13 +252,14 @@ featured:
     img: "covenant.png"
     documentation: "https://github.com/cobbr/Covenant/wiki"
 
+  - repo: "hardhatc2"
+    type: "red"
+    img: "harhat.png"
+
   - repo: "sharpsploit"
     type: "red"
 
   - repo: "sharpsccm"
-    type: "red"
-
-  - repo: "ghostpack"
     type: "red"
 
   - repo: "cs2modrewrite"
