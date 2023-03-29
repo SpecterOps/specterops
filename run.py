@@ -5,6 +5,7 @@ import os
 from lib.builder import ReadMeBuilder
 from lib.extractor import DataExtractor
 from lib.loader import load_config
+from lib.logger import logger
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -26,7 +27,7 @@ if __name__ == "__main__":
             extractor.fetch()
             extractor.dump_json()
         else:
-            print("Please provide a GitHub Personal Access Token with the `-t` flag")
+            logger.error("Please provide a GitHub Personal Access Token with the `-t` flag")
             raise SystemExit
 
     if command in ["build", "all"]:
@@ -40,3 +41,8 @@ if __name__ == "__main__":
         extractor = DataExtractor(local_only=True)
         extractor.update()
         extractor.dump_json()
+
+        with open(output_path, "r") as f:
+            data = json.load(f)
+            builder = ReadMeBuilder(data)
+            builder.build()
