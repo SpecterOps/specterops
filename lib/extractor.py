@@ -16,7 +16,7 @@ from lib.logger import logger
 
 class DataExtractor:
     """
-    Build the README.md file with data fetched from GitHub's GraphQL API.
+    Build a JSON blob with data fetched from GitHub's GraphQL API.
 
     **Parameters**
 
@@ -192,7 +192,7 @@ class DataExtractor:
         logger.info("Successfully authenticated as: %s", result["viewer"]["login"])
 
     def _determine_featured(self, repo: str) -> None:
-        """Determine which projects are featured and set some values."""
+        """Determine which projects are featured and set values for those projects."""
         extras = []
         img = None
         project_type = "red"
@@ -218,7 +218,7 @@ class DataExtractor:
     def _sort_keys(self) -> None:
         """
         Sort the keys in the `repo_data` dictionary so the featured repositories
-        are first in the order they appear in the config.yml file.
+        are first in the order they appear in the `config.yml` file.
         """
         reordered = OrderedDict()
         # self.repo_data = OrderedDict(self.repo_data)
@@ -258,7 +258,7 @@ class DataExtractor:
         logger.info("Finished collecting project data!")
 
     def dump_json(self) -> None:
-        """Dump the data to a JSON file."""
+        """Dump the `repo_data` dictionary a file as JSON."""
         logger.info("Writing project data to %s", self.output_path)
         self._sort_keys()
         with open(self.output_path, "w") as f:

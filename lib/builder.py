@@ -8,8 +8,13 @@ from lib.loader import load_config
 from lib.logger import logger
 
 
+def _convert_license_name(license_name: str) -> str:
+    """Convert a license name to a URL-friendly string"""
+    return license_name.replace(" ", "_").replace("-", "--")
+
+
 class ReadMeBuilder:
-    """Build a README.ms file from JSON data of GitHub repositories."""
+    """Build a README.md file based on a JSON file containing GitHub repository data."""
     script_path = os.path.realpath(".")
     config_path = os.path.join(script_path, "config", "config.yml")
 
@@ -31,19 +36,12 @@ class ReadMeBuilder:
         self.introduction = cfg["copy"]["introduction"]
         self.featured = cfg["copy"]["featured"]
         self.other = cfg["copy"]["other"]
+        self.banner = cfg["copy"]["banner"]
 
         self.overrides = cfg["overrides"]
 
         self.data = data
         self.md_file = mdutils.MdUtils(file_name="README.md", title="SpecterOps Projects")
-
-    def _convert_license_name(self, license_name: str) -> str:
-        """Convert the license name to a URL-friendly string"""
-        return license_name.replace(" ", "_").replace("-", "--")
-
-    def _convert_license_name(self, license_name: str) -> str:
-        """Convert the license name to a URL-friendly string"""
-        return license_name.replace(" ", "_").replace("-", "--")
 
     def build(self, toc: bool = False) -> None:
         """
@@ -51,7 +49,8 @@ class ReadMeBuilder:
 
         **Parameters**
 
-        * `toc` – bool value to determine whether to include a table of contents
+        ``toc``
+            A boolean value to determine whether to include a table of contents
         """
         self._build_header()
         self._build_featured()
@@ -61,9 +60,9 @@ class ReadMeBuilder:
         self.md_file.create_md_file()
 
     def _build_header(self) -> None:
-        """Build the header of the README.md file, the section above the "Featured Projects" header"""
+        """Build the header of the README.md file, the section above the "Featured Projects" header."""
         self.md_file.new_line(
-            self.md_file.new_inline_image("SpecterOps", "img/specterops-banner.jpg")
+            self.md_file.new_inline_image("SpecterOps", self.banner)
         )
         self.md_file.new_line(
             f"[![Slack](https://img.shields.io/badge/Slack-SpecterOps-{self.COLORS['green']})](https://bloodhoundgang.herokuapp.com)"
@@ -77,7 +76,7 @@ class ReadMeBuilder:
         self.md_file.new_line()
 
     def _build_featured(self) -> None:
-        """Build the "Featured Projects" section of the README.md file"""
+        """Build the "Featured Projects" section of the README.md file."""
         self.md_file.new_header(level=1, title="Featured Projects")
         self.md_file.new_line(self.featured.strip())
         self.md_file.new_line()
@@ -106,13 +105,12 @@ class ReadMeBuilder:
                     project_color = self.COLORS["blue"]
 
                 if project_type.lower() in ["p", "purple"]:
-                    print("purple")
                     project_type = urllib.parse.quote("Red & Blue Team")
                     project_color = self.COLORS["purple"]
 
                 license_name = None
                 if repo["licenseInfo"]:
-                    license_name = self._convert_license_name(repo["licenseInfo"]["spdxId"])
+                    license_name = _convert_license_name(repo["licenseInfo"]["spdxId"])
 
                 img = None
                 if repo["img"]:
@@ -126,7 +124,7 @@ class ReadMeBuilder:
                             logger.info(f"Overriding description for {name}")
                             description = project["description"].strip()
                         if "license" in project:
-                            license_name = self._convert_license_name(project["license"].strip())
+                            license_name = _convert_license_name(project["license"].strip())
 
                 # Repo language metrics
                 language_metrics = {}
@@ -173,8 +171,6 @@ class ReadMeBuilder:
                     self.md_file.new_line()
                     for line in description.splitlines():
                         self.md_file.new_line(f"> {line}")
-                    # self.md_file.new_line()
-                    # self.md_file.write(f"> {description}")
 
                     table_contents = [
                         "Resource", "Link",
