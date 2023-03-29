@@ -95,6 +95,21 @@ The following projects are some of the larger open-source projects SpecterOps ha
   
 </details>  
 
+## HardHatC2
+  
+ ![Project Type](https://img.shields.io/badge/type-Red%20Team-FF7E79) ![Slack](https://img.shields.io/badge/language-C%23-5465FF) ![forks](https://img.shields.io/github/forks/DragoQCC/HardHatC2?color=0F0B38&style=social) ![stargazers](https://img.shields.io/github/stars/DragoQCC/HardHatC2?color=5465FF&style=social)  
+<details><summary>More Info</summary>  
+  
+![HardHatC2](img/harhat.png)  
+  
+> A c# Command & Control framework   
+
+|Resource|Link|
+| :--- | :--- |
+|GitHub|<https://github.com/DragoQCC/HardHatC2>|
+  
+</details>  
+
 ## SharpSploit
   
 ![license](https://img.shields.io/badge/license-BSD--3--Clause-02B36C) ![Project Type](https://img.shields.io/badge/type-Red%20Team-FF7E79) ![Slack](https://img.shields.io/badge/language-C%23-5465FF) ![forks](https://img.shields.io/github/forks/cobbr/SharpSploit?color=0F0B38&style=social) ![stargazers](https://img.shields.io/github/stars/cobbr/SharpSploit?color=5465FF&style=social)  
@@ -277,8 +292,6 @@ SpecterOps employees have also created and contributed to many other projects, t
   - A tool to create COM class/interface relationships in neo4j  
 - [eladshamir/SharpElevator](https://github.com/eladshamir/SharpElevator)  
   - SharpElevator is a C# implementation of Elevator for UAC bypass.  This UAC bypass was originally discovered by James Forshaw and published in his brilliant post at: https://googleprojectzero.blogspot.com/2019/12/calling-local-windows-rpc-servers-from.html  
-- [greycatsec/cookienapper](https://github.com/greycatsec/cookienapper)  
-  - Python tool for kidnapping Chrome cookies from a MacOS target   
 - [jaredcatkinson/PSReflect-Functions](https://github.com/jaredcatkinson/PSReflect-Functions)  
   - Module to provide PowerShell functions that abstract Win32 API functions  
 - [jaredcatkinson/AbstractionMaps](https://github.com/jaredcatkinson/AbstractionMaps)  
@@ -383,6 +396,4 @@ SpecterOps employees have also created and contributed to many other projects, t
 - [GhostPack/SharpDump](https://github.com/GhostPack/SharpDump)  
   - SharpDump is a C# port of PowerSploit's Out-Minidump.ps1 functionality.  
 - [PowerShellMafia/PowerSCCM](https://github.com/PowerShellMafia/PowerSCCM)  
-  - PowerSCCM - PowerShell module to interact with SCCM deployments  
-- [mattifestation/CimSweep](https://github.com/mattifestation/CimSweep)  
-  - CimSweep is a suite of CIM/WMI-based tools that enable the ability to perform incident response and hunting operations remotely across all versions of Windows.
+  - PowerSCCM - PowerShell module to interact with SCCM deployments
