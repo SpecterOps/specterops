@@ -1,0 +1,4 @@
+gql==3.4.0
+graphql-core==3.2.1
+mdutils==1.4.0
+PyYAML==5.4.1
