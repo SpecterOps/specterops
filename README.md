@@ -102,7 +102,7 @@ The following projects are some of the larger open-source projects SpecterOps ha
   
 ![HardHatC2](img/harhat.png)  
   
-> A c# Command & Control framework   
+> A C# Command & Control framework   
 
 |Resource|Link|
 | :--- | :--- |
