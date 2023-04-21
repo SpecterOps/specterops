@@ -351,6 +351,7 @@ SpecterOps employees have also created and contributed to many other projects, t
 - [MythicAgents/apfell](https://github.com/MythicAgents/apfell)  
   - JavaScript for Automation (JXA) macOS agent  
 - [MythicAgents/poseidon](https://github.com/MythicAgents/poseidon)  
+  - Poseidon is a Golang agent targeting Linux and macOS  
 - [MythicAgents/Apollo](https://github.com/MythicAgents/Apollo)  
   - A .NET Framework 4.0 Windows Agent  
 - [MythicMeta/Mythic_CLI](https://github.com/MythicMeta/Mythic_CLI)  
